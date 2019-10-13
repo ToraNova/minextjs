@@ -53,7 +53,7 @@ class Signup extends Component {
 
 	render () {
 		return (
-		<Layout>
+		<div>
 		<div className="login">
 		<img src="/icons/babyworm128.png" alt="babyworm128.png" ref="worm" />
 		<h1>New Wormy</h1>
@@ -82,6 +82,8 @@ class Signup extends Component {
 			padding: 1rem;
 			border: 1px solid #ccc;
 			border-radius: 4px;
+			text-align: center;
+			margin-top: 50px;
 			}
 			form {
 			display: flex;
@@ -105,7 +107,7 @@ class Signup extends Component {
 			display: block;
 			}
 		`}</style>
-		</Layout>
+		</div>
 		)
 	}
 }

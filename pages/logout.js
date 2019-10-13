@@ -26,7 +26,6 @@ class Logout extends Component {
 		//logout the user
 		auth.logout() //wait for logout
 		.then( res => {
-			console.log("Logged out")
 			Router.push('/login')
 		}).catch( e => {
 			//error occurred

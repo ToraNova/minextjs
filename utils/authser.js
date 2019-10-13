@@ -95,7 +95,6 @@ export default class AuthService {
 			method: 'POST'
 		}).then(res => {
 			//response is 204
-			console.log("Removing Storage")
 			localStorage.removeItem('token');
 			localStorage.removeItem('profile');
 			return Promise.resolve(res)
@@ -113,6 +112,9 @@ export default class AuthService {
 		}
 	}
 
+	// PLEASE NOTE THAT WE ONLY ACCEPT JSON RESPONSE, PLEASE FORMAT
+	// THE RESPONSE FROM BACK-END TO BE JSON LIKE
+	// request that are not 200 cannot be read (body thrown away)
 	// performs api calls sending the required authentication headers
 	// this is actually a wrapper around the 'fetch' function from
 	// isomorphic fetch

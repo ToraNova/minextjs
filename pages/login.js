@@ -12,7 +12,7 @@ import Link from 'next/link';
 
 //custom imports
 import AuthService from '../utils/authser.js'
-import Layout from '../layouts/minimalist/border1.js'
+import Layout from '../layouts/minimalist/border1.js' //currently not used
 
 //configure AuthService onto localhost:1996
 const auth = new AuthService('http://localhost:1996')
@@ -50,7 +50,7 @@ class Login extends Component {
 
 	render () {
 		return (
-		<Layout>
+		<div>
 		<div className="login">
 		<img src="/icons/worm128.png" alt="worm128.png" ref="worm"/>
 		<h1>Wormy</h1>
@@ -77,6 +77,8 @@ class Login extends Component {
 			padding: 1rem;
 			border: 1px solid #ccc;
 			border-radius: 4px;
+			text-align: center;
+			margin-top: 50px;
 			}
 			form {
 			display: flex;
@@ -100,7 +102,7 @@ class Login extends Component {
 			display: block;
 			}
 		`}</style>
-		</Layout>
+		</div>
 		)
 	}
 }
