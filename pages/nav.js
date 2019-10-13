@@ -19,6 +19,8 @@ const Nav = () => (
 	<Link href="/about"><a style={linkStyle}>About</a></Link>
 	<Link href="/profile"><a style={linkStyle}>Profile</a></Link>
 	<Link href="/login"><a style={linkStyle}>Login</a></Link>
+	<Link href="/signup"><a style={linkStyle}>Signup</a></Link>
+	<Link href="/logout"><a style={linkStyle}>Logout</a></Link>
 	</div>
 );
 

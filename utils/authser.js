@@ -5,6 +5,9 @@
  * The JWT token is stored as cookies
  */
 
+//redundant but this allows me to explicitly know fetch is from this package
+import fetch from 'isomorphic-unfetch'
+
 //This class can be used as a service handler for login pages
 //or any form of authentication
 export default class AuthService {
@@ -14,6 +17,26 @@ export default class AuthService {
 		this.fetch = this.fetch.bind(this)
 		this.login = this.login.bind(this)
 		this.getProfile = this.getProfile.bind(this)
+	}
+
+	//signup a user
+	signUp(email, name, password){
+		return this.fetch(`${this.domain}/user/add`, {
+			method: 'POST',
+			body: JSON.stringify({
+			email,
+			name,
+			password
+		})
+		}).then(res => {
+			this.setToken(res.token) //arms the token
+			return this.fetch(`${this.domain}/user/profile`, {
+			method: 'GET'
+		})
+		}).then(res => {
+			this.setProfile(res)
+			return Promise.resolve(res)
+		})
 	}
 
 	// Get a token
@@ -65,9 +88,18 @@ export default class AuthService {
 	}
 
 	// Clear user token and profile data from localStorage
+	// and logout user (from all device /all)
 	logout(){
-		localStorage.removeItem('token');
-		localStorage.removeItem('profile');
+		//only proceed if the user IS logged in
+		return this.fetch(`${this.domain}/user/logout/all`, {
+			method: 'POST'
+		}).then(res => {
+			//response is 204
+			console.log("Removing Storage")
+			localStorage.removeItem('token');
+			localStorage.removeItem('profile');
+			return Promise.resolve(res)
+		})
 	}
 
 	// raises an error in case response status is not a success
@@ -82,6 +114,8 @@ export default class AuthService {
 	}
 
 	// performs api calls sending the required authentication headers
+	// this is actually a wrapper around the 'fetch' function from
+	// isomorphic fetch
 	fetch(url, options){
 		const headers = {
 			'Accept': 'application/json',

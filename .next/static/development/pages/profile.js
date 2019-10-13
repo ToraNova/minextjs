@@ -4839,6 +4839,18 @@ module.exports = bind.call(Function.call, Object.prototype.hasOwnProperty);
 
 /***/ }),
 
+/***/ "./node_modules/isomorphic-unfetch/browser.js":
+/*!****************************************************!*\
+  !*** ./node_modules/isomorphic-unfetch/browser.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = window.fetch || (window.fetch = __webpack_require__(/*! unfetch */ "./node_modules/unfetch/dist/unfetch.mjs").default || __webpack_require__(/*! unfetch */ "./node_modules/unfetch/dist/unfetch.mjs"));
+
+
+/***/ }),
+
 /***/ "./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Fprofile&absolutePagePath=%2Fhome%2Fcjason%2Fprodev%2Fminextjs%2Fpages%2Fprofile.js!./":
 /*!*****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Fprofile&absolutePagePath=%2Fhome%2Fcjason%2Fprodev%2Fminextjs%2Fpages%2Fprofile.js ***!
@@ -9540,6 +9552,21 @@ try {
 
 /***/ }),
 
+/***/ "./node_modules/unfetch/dist/unfetch.mjs":
+/*!***********************************************!*\
+  !*** ./node_modules/unfetch/dist/unfetch.mjs ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(__webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function(e,n){return n=n||{},new Promise(function(t,r){var s=new XMLHttpRequest,o=[],u=[],i={},a=function(){return{ok:2==(s.status/100|0),statusText:s.statusText,status:s.status,url:s.responseURL,text:function(){return Promise.resolve(s.responseText)},json:function(){return Promise.resolve(JSON.parse(s.responseText))},blob:function(){return Promise.resolve(new Blob([s.response]))},clone:a,headers:{keys:function(){return o},entries:function(){return u},get:function(e){return i[e.toLowerCase()]},has:function(e){return e.toLowerCase()in i}}}};for(var l in s.open(n.method||"get",e,!0),s.onload=function(){s.getAllResponseHeaders().replace(/^(.*?):[^\S\n]*([\s\S]*?)$/gm,function(e,n,t){o.push(n=n.toLowerCase()),u.push([n,t]),i[n]=i[n]?i[n]+","+t:t}),t(a())},s.onerror=r,s.withCredentials="include"==n.credentials,n.headers)s.setRequestHeader(l,n.headers[l]);s.send(n.body||null)})});
+//# sourceMappingURL=unfetch.mjs.map
+
+
+/***/ }),
+
 /***/ "./node_modules/url/url.js":
 /*!*********************************!*\
   !*** ./node_modules/url/url.js ***!
@@ -10468,7 +10495,35 @@ var Nav = function Nav() {
       lineNumber: 21
     },
     __self: this
-  }, "Login")));
+  }, "Login")), __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    href: "/signup",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 22
+    },
+    __self: this
+  }, __jsx("a", {
+    style: linkStyle,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 22
+    },
+    __self: this
+  }, "Signup")), __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    href: "/logout",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 23
+    },
+    __self: this
+  }, __jsx("a", {
+    style: linkStyle,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 23
+    },
+    __self: this
+  }, "Logout")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Nav);
@@ -10579,7 +10634,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _authser_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./authser.js */ "./utils/authser.js");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! next/router */ "./node_modules/next/dist/client/router.js");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _authser_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./authser.js */ "./utils/authser.js");
 
 
 
@@ -10597,9 +10654,11 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement;
  */
 // utils/withAuth.js - a HOC for protected pages
 
+ //custom Auth service
+
 
 function AuthRequired(AuthComponent) {
-  var auth = new _authser_js__WEBPACK_IMPORTED_MODULE_7__["default"]('http://localhost:5000');
+  var auth = new _authser_js__WEBPACK_IMPORTED_MODULE_8__["default"]('http://localhost:5000');
   return (
     /*#__PURE__*/
     function (_Component) {
@@ -10622,7 +10681,7 @@ function AuthRequired(AuthComponent) {
         value: function componentDidMount() {
           if (!auth.loggedIn()) {
             //if not logged in
-            this.props.url.replaceTo('/');
+            next_router__WEBPACK_IMPORTED_MODULE_7___default.a.push('/login');
           }
 
           this.setState({
@@ -10635,20 +10694,20 @@ function AuthRequired(AuthComponent) {
           return __jsx("div", {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 32
+              lineNumber: 35
             },
             __self: this
           }, this.state.isLoading ? __jsx("div", {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 34
+              lineNumber: 37
             },
             __self: this
           }, "LOADING....") : __jsx(AuthComponent, Object(_babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, this.props, {
             auth: auth,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 36
+              lineNumber: 39
             },
             __self: this
           })));
@@ -10679,6 +10738,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime-corejs2/helpers/esm/classCallCheck.js");
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/createClass */ "./node_modules/@babel/runtime-corejs2/helpers/esm/createClass.js");
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! isomorphic-unfetch */ "./node_modules/isomorphic-unfetch/browser.js");
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
@@ -10691,8 +10752,10 @@ __webpack_require__.r(__webpack_exports__);
  * This is reusable across pages
  * The JWT token is stored as cookies
  */
-//This class can be used as a service handler for login pages
+//redundant but this allows me to explicitly know fetch is from this package
+ //This class can be used as a service handler for login pages
 //or any form of authentication
+
 var AuthService =
 /*#__PURE__*/
 function () {
@@ -10704,18 +10767,19 @@ function () {
     this.fetch = this.fetch.bind(this);
     this.login = this.login.bind(this);
     this.getProfile = this.getProfile.bind(this);
-  } // Get a token
+  } //signup a user
 
 
   Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__["default"])(AuthService, [{
-    key: "login",
-    value: function login(email, password) {
+    key: "signUp",
+    value: function signUp(email, name, password) {
       var _this = this;
 
-      return this.fetch("".concat(this.domain, "/user/login"), {
+      return this.fetch("".concat(this.domain, "/user/add"), {
         method: 'POST',
         body: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_2___default()({
           email: email,
+          name: name,
           password: password
         })
       }).then(function (res) {
@@ -10727,6 +10791,31 @@ function () {
         });
       }).then(function (res) {
         _this.setProfile(res);
+
+        return _babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_1___default.a.resolve(res);
+      });
+    } // Get a token
+
+  }, {
+    key: "login",
+    value: function login(email, password) {
+      var _this2 = this;
+
+      return this.fetch("".concat(this.domain, "/user/login"), {
+        method: 'POST',
+        body: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_2___default()({
+          email: email,
+          password: password
+        })
+      }).then(function (res) {
+        _this2.setToken(res.token); //arms the token
+
+
+        return _this2.fetch("".concat(_this2.domain, "/user/profile"), {
+          method: 'GET'
+        });
+      }).then(function (res) {
+        _this2.setProfile(res);
 
         return _babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_1___default.a.resolve(res);
       });
@@ -10765,12 +10854,21 @@ function () {
     value: function getToken() {
       return localStorage.getItem('token');
     } // Clear user token and profile data from localStorage
+    // and logout user (from all device /all)
 
   }, {
     key: "logout",
     value: function logout() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('profile');
+      //only proceed if the user IS logged in
+      return this.fetch("".concat(this.domain, "/user/logout/all"), {
+        method: 'POST'
+      }).then(function (res) {
+        //response is 204
+        console.log("Removing Storage");
+        localStorage.removeItem('token');
+        localStorage.removeItem('profile');
+        return _babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_1___default.a.resolve(res);
+      });
     } // raises an error in case response status is not a success
 
   }, {
@@ -10784,20 +10882,12 @@ function () {
         throw error;
       }
     } // performs api calls sending the required authentication headers
+    // this is actually a wrapper around the 'fetch' function from
+    // isomorphic fetch
 
   }, {
     key: "fetch",
-    value: function (_fetch) {
-      function fetch(_x, _x2) {
-        return _fetch.apply(this, arguments);
-      }
-
-      fetch.toString = function () {
-        return _fetch.toString();
-      };
-
-      return fetch;
-    }(function (url, options) {
+    value: function fetch(url, options) {
       var headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -10807,12 +10897,12 @@ function () {
         headers['Authorization'] = 'Bearer ' + this.getToken();
       }
 
-      return fetch(url, Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({
+      return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_5___default()(url, Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({
         headers: headers
       }, options)).then(this._checkStatus).then(function (response) {
         return response.json();
       });
-    })
+    }
   }]);
 
   return AuthService;
@@ -10822,7 +10912,7 @@ function () {
 
 /***/ }),
 
-/***/ 1:
+/***/ 4:
 /*!*********************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2Fprofile&absolutePagePath=%2Fhome%2Fcjason%2Fprodev%2Fminextjs%2Fpages%2Fprofile.js ***!
   \*********************************************************************************************************************************/
@@ -10845,5 +10935,5 @@ module.exports = dll_b35e09dc2ca94ac6d9c1;
 
 /***/ })
 
-},[[1,"static/runtime/webpack.js"]]]);
+},[[4,"static/runtime/webpack.js"]]]);
 //# sourceMappingURL=profile.js.map

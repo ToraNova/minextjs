@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2037,7 +2037,35 @@ const Nav = () => __jsx("div", {
     lineNumber: 21
   },
   __self: undefined
-}, "Login")));
+}, "Login")), __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+  href: "/signup",
+  __source: {
+    fileName: _jsxFileName,
+    lineNumber: 22
+  },
+  __self: undefined
+}, __jsx("a", {
+  style: linkStyle,
+  __source: {
+    fileName: _jsxFileName,
+    lineNumber: 22
+  },
+  __self: undefined
+}, "Signup")), __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+  href: "/logout",
+  __source: {
+    fileName: _jsxFileName,
+    lineNumber: 23
+  },
+  __self: undefined
+}, __jsx("a", {
+  style: linkStyle,
+  __source: {
+    fileName: _jsxFileName,
+    lineNumber: 23
+  },
+  __self: undefined
+}, "Logout")));
 
 /* harmony default export */ __webpack_exports__["default"] = (Nav);
 
@@ -2118,7 +2146,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/extends */ "./node_modules/@babel/runtime-corejs2/helpers/esm/extends.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _authser_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./authser.js */ "./utils/authser.js");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _authser_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./authser.js */ "./utils/authser.js");
 
 var _jsxFileName = "/home/cjason/prodev/minextjs/utils/authreq.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
@@ -2131,9 +2161,11 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
  */
 // utils/withAuth.js - a HOC for protected pages
 
+ //custom Auth service
+
 
 function AuthRequired(AuthComponent) {
-  const auth = new _authser_js__WEBPACK_IMPORTED_MODULE_2__["default"]('http://localhost:5000');
+  const auth = new _authser_js__WEBPACK_IMPORTED_MODULE_3__["default"]('http://localhost:5000');
   return class Authenticated extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
     constructor(props) {
       super(props);
@@ -2145,7 +2177,7 @@ function AuthRequired(AuthComponent) {
     componentDidMount() {
       if (!auth.loggedIn()) {
         //if not logged in
-        this.props.url.replaceTo('/');
+        next_router__WEBPACK_IMPORTED_MODULE_2___default.a.push('/login');
       }
 
       this.setState({
@@ -2157,20 +2189,20 @@ function AuthRequired(AuthComponent) {
       return __jsx("div", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 32
+          lineNumber: 35
         },
         __self: this
       }, this.state.isLoading ? __jsx("div", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 34
+          lineNumber: 37
         },
         __self: this
       }, "LOADING....") : __jsx(AuthComponent, Object(_babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, this.props, {
         auth: auth,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 36
+          lineNumber: 39
         },
         __self: this
       })));
@@ -2196,6 +2228,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js");
 /* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
@@ -2206,8 +2240,10 @@ __webpack_require__.r(__webpack_exports__);
  * This is reusable across pages
  * The JWT token is stored as cookies
  */
-//This class can be used as a service handler for login pages
+//redundant but this allows me to explicitly know fetch is from this package
+ //This class can be used as a service handler for login pages
 //or any form of authentication
+
 class AuthService {
   //if domain is passed, then use that else fallback to localhost:5000
   constructor(domain) {
@@ -2215,6 +2251,27 @@ class AuthService {
     this.fetch = this.fetch.bind(this);
     this.login = this.login.bind(this);
     this.getProfile = this.getProfile.bind(this);
+  } //signup a user
+
+
+  signUp(email, name, password) {
+    return this.fetch(`${this.domain}/user/add`, {
+      method: 'POST',
+      body: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_2___default()({
+        email,
+        name,
+        password
+      })
+    }).then(res => {
+      this.setToken(res.token); //arms the token
+
+      return this.fetch(`${this.domain}/user/profile`, {
+        method: 'GET'
+      });
+    }).then(res => {
+      this.setProfile(res);
+      return _babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_1___default.a.resolve(res);
+    });
   } // Get a token
 
 
@@ -2265,11 +2322,20 @@ class AuthService {
   getToken() {
     return localStorage.getItem('token');
   } // Clear user token and profile data from localStorage
+  // and logout user (from all device /all)
 
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('profile');
+    //only proceed if the user IS logged in
+    return this.fetch(`${this.domain}/user/logout/all`, {
+      method: 'POST'
+    }).then(res => {
+      //response is 204
+      console.log("Removing Storage");
+      localStorage.removeItem('token');
+      localStorage.removeItem('profile');
+      return _babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_1___default.a.resolve(res);
+    });
   } // raises an error in case response status is not a success
 
 
@@ -2282,6 +2348,8 @@ class AuthService {
       throw error;
     }
   } // performs api calls sending the required authentication headers
+  // this is actually a wrapper around the 'fetch' function from
+  // isomorphic fetch
 
 
   fetch(url, options) {
@@ -2294,7 +2362,7 @@ class AuthService {
       headers['Authorization'] = 'Bearer ' + this.getToken();
     }
 
-    return fetch(url, Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3___default()(url, Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({
       headers
     }, options)).then(this._checkStatus).then(response => response.json());
   }
@@ -2303,7 +2371,7 @@ class AuthService {
 
 /***/ }),
 
-/***/ 4:
+/***/ 7:
 /*!********************************!*\
   !*** multi ./pages/profile.js ***!
   \********************************/
@@ -2411,6 +2479,28 @@ module.exports = require("core-js/library/fn/object/keys");
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/library/fn/promise");
+
+/***/ }),
+
+/***/ "isomorphic-unfetch":
+/*!*************************************!*\
+  !*** external "isomorphic-unfetch" ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("isomorphic-unfetch");
+
+/***/ }),
+
+/***/ "next/router":
+/*!******************************!*\
+  !*** external "next/router" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("next/router");
 
 /***/ }),
 

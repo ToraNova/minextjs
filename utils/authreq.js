@@ -7,6 +7,9 @@
 
 // utils/withAuth.js - a HOC for protected pages
 import React, {Component} from 'react'
+import Router from 'next/router'
+
+//custom Auth service
 import AuthService from './authser.js'
 
 export default function AuthRequired(AuthComponent) {
@@ -22,7 +25,7 @@ export default function AuthRequired(AuthComponent) {
 		componentDidMount () {
 			if (!auth.loggedIn()) {
 				//if not logged in
-				this.props.url.replaceTo('/')
+				Router.push('/login')
 			}
 			this.setState({ isLoading: false })
 		}

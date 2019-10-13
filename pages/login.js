@@ -7,10 +7,11 @@
 
 //react components
 import React, {Component} from 'react'
+import Router from 'next/router'
+import Link from 'next/link';
 
-//custom service
+//custom imports
 import AuthService from '../utils/authser.js'
-
 import Layout from '../layouts/minimalist/border1.js'
 
 //configure AuthService onto localhost:1996
@@ -25,7 +26,7 @@ class Login extends Component {
 	componentDidMount () {
 		if (auth.loggedIn()) {
 			// redirect if you're already logged in
-			this.props.url.replaceTo('/profile')
+			Router.push('/profile')
 		}
 	}
 
@@ -34,11 +35,16 @@ class Login extends Component {
 		// yay uncontrolled forms!
 		auth.login(this.refs.email.value, this.refs.password.value)
 		.then(res => {
-		console.log(res)
-		this.props.url.replaceTo('/profile')
+			Router.push('/profile')
 		})
 		.catch(e => {
-			console.log(e)
+			//display login error
+			if( e.response && e.response.status == 401){
+				//unauthorized (wrong creds or invalid input)
+				//change the worm image
+				this.refs.worm.src = "/icons/worm128-o.png"
+				this.refs.status.innerHTML = "Invalid credentials !"
+			}
 		})
 	}
 
@@ -46,7 +52,7 @@ class Login extends Component {
 		return (
 		<Layout>
 		<div className="login">
-		<img src="/worm128.png" alt="worm128.png" />
+		<img src="/icons/worm128.png" alt="worm128.png" ref="worm"/>
 		<h1>Wormy</h1>
 		<form onSubmit={this.handleSubmit}>
 
@@ -58,6 +64,10 @@ class Login extends Component {
 
 		<input type="submit" value="Login"/>
 
+		<br/>
+		<label ref="status" style={{color:'#ea3636', textAlign: 'right'}}></label>
+
+		<Link href="/signup"><a >Signup</a></Link>
 		</form>
 		</div>
 		<style jsx>{`

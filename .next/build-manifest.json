@@ -12,11 +12,11 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/login": [
+    "/profile": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/profile": [
+    "/signup": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
