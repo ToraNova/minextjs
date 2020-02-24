@@ -44,6 +44,8 @@ class Login extends Component {
 				//change the worm image
 				this.refs.worm.src = "/icons/worm128-o.png"
 				this.refs.status.innerHTML = "Invalid credentials !"
+			}else{
+				Router.push('/error/[emsg]',`/error/${e}`)
 			}
 		})
 	}

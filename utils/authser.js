@@ -7,6 +7,9 @@
 
 //redundant but this allows me to explicitly know fetch is from this package
 import fetch from 'isomorphic-unfetch'
+import AbortController from 'abort-controller'
+
+import Router from 'next/router'
 
 //This class can be used as a service handler for login pages
 //or any form of authentication
@@ -36,6 +39,8 @@ export default class AuthService {
 		}).then(res => {
 			this.setProfile(res)
 			return Promise.resolve(res)
+		}).catch( function(error){
+			throw error;
 		})
 	}
 
@@ -46,7 +51,7 @@ export default class AuthService {
 			body: JSON.stringify({
 			email,
 			password
-		})
+			})
 		}).then(res => {
 			this.setToken(res.token) //arms the token
 			return this.fetch(`${this.domain}/user/profile`, {
@@ -55,6 +60,8 @@ export default class AuthService {
 		}).then(res => {
 			this.setProfile(res)
 			return Promise.resolve(res)
+		}).catch( function(error){
+			throw error;
 		})
 	}
 
@@ -98,6 +105,8 @@ export default class AuthService {
 			localStorage.removeItem('token');
 			localStorage.removeItem('profile');
 			return Promise.resolve(res)
+		}).catch( function(error){
+			throw error;
 		})
 	}
 
@@ -119,6 +128,12 @@ export default class AuthService {
 	// this is actually a wrapper around the 'fetch' function from
 	// isomorphic fetch
 	fetch(url, options){
+		const controller = new AbortController()
+		const signal = controller.signal
+		setTimeout(() => {
+			controller.abort()
+		}, 5000)
+
 		const headers = {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json'
@@ -129,10 +144,14 @@ export default class AuthService {
 		}
 
 		return fetch(url, {
-		headers,
-		...options
+			headers:headers,
+			signal:signal,
+			...options
 		})
 		.then(this._checkStatus)
 		.then(response => response.json())
+		.catch(function(error) {
+			throw error;
+		})
 	}
 }
