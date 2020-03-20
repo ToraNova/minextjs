@@ -26,8 +26,9 @@ export default function AuthRequired(AuthComponent) {
 			if (!auth.loggedIn()) {
 				//if not logged in
 				Router.push('/login')
+			}else{
+				this.setState({ isLoading: false })
 			}
-			this.setState({ isLoading: false })
 		}
 
 		render() {
