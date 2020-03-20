@@ -12,12 +12,15 @@ import Layout from '../layouts/minimalist/border0.js'
 class Profile extends Component {
 	render() {
 		const user = this.props.auth.getProfile()
+		console.log(user)
 		return (
 			<div>
 			<Layout>
 			<Nav/>
 			</Layout>
-			<div>Current user: {user.email}</div>
+			<div><b>User Profile</b></div>
+			<div>Username: {user.name}</div>
+			<div>Email: {user.email}</div>
 			</div>
 		)
 	}

@@ -13,7 +13,7 @@ import Router from 'next/router'
 import AuthService from './authser.js'
 
 export default function AuthRequired(AuthComponent) {
-	const auth = new AuthService('http://localhost:1996')
+	const auth = new AuthService(process.env.backend_urlp)
 	return class Authenticated extends Component {
 		constructor(props) {
 			super(props)

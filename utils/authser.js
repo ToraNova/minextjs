@@ -16,7 +16,7 @@ import Router from 'next/router'
 export default class AuthService {
 	//if domain is passed, then use that else fallback to localhost:5000
 	constructor(domain) {
-		this.domain = domain || 'http://localhost:1996'
+		this.domain = domain || process.env.backend_urlp
 		this.fetch = this.fetch.bind(this)
 		this.login = this.login.bind(this)
 		this.getProfile = this.getProfile.bind(this)
