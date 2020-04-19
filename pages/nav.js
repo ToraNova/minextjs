@@ -21,6 +21,7 @@ const Nav = () => (
 	<Link href="/login"><a style={linkStyle}>Login</a></Link>
 	<Link href="/signup"><a style={linkStyle}>Signup</a></Link>
 	<Link href="/logout"><a style={linkStyle}>Logout</a></Link>
+	<Link href="/bootstrap"><a style={linkStyle}>Bootstrap</a></Link>
 	</div>
 );
 
